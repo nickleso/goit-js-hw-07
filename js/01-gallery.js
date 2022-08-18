@@ -1,13 +1,10 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
-console.log(galleryItems);
-
 const galleryContainer = document.querySelector('.gallery');
 const galleryMarkup = createGalleryMarkup(galleryItems);
 
 galleryContainer.insertAdjacentHTML('beforeend', galleryMarkup);
-
 galleryContainer.addEventListener('click', onGalleryContainerClick);
 
 // markup function
@@ -32,34 +29,36 @@ function createGalleryMarkup(images) {
 
 // click event function
 function onGalleryContainerClick(event) {
-  const isGalerryImage = event.target.classList.contains('.gallery__image');
-  const originalGalleryImageSource = event.target.dataset.source;
-  console.dir(event.target);
+  event.preventDefault();
 
-  if (!isGalerryImage) {
+  const isGalleryImage = event.target.classList.contains('gallery__image');
+
+  if (!isGalleryImage) {
     return;
   }
 
-  return console.dir(event.target.dataset.source);
+  ligthboxGallery();
+
+  const openedImage = document.querySelector('.is-opened');
+  openedImage.src = event.target.dataset.source;
+  openedImage.alt = event.target.alt;
 }
 
-// add active class on item function
-function addActiveClassOnItem(item) {
-  item.classList.add('is-active');
-}
+// lightbox function
+function ligthboxGallery() {
+  const ligthbox = basicLightbox.create(`
+    <img class="is-opened" src="https://cdn.pixabay.com/photo/2019/05/16/09/47/beach-4206785_1280.jpg" width="1280">
+`);
 
-// remove active class from item function
-function removeActiveClassOnItem() {
-  const currentActiveItem = document.querySelector('.gallery__item.is-active');
+  ligthbox.show();
 
-  if (currentActiveItem) {
-    currentActiveItem.classList.remove('.is-active');
+  window.addEventListener('keydown', onEscapeKey);
+  function onEscapeKey(event) {
+    const ESC_KEY_CODE = 'Escape';
+
+    if (event.code === ESC_KEY_CODE) {
+      ligthbox.close();
+      console.log('pres');
+    }
   }
 }
-
-//set bcg color function
-function setBodyBcgColor(color) {
-  document.body.style.backgroundColor = color;
-}
-
-setBodyBcgColor('beige');
