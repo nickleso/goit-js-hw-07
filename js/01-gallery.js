@@ -58,7 +58,6 @@ function ligthboxGallery() {
 
     if (event.code === ESC_KEY_CODE) {
       ligthbox.close();
-      console.log('pres');
     }
   }
 }
