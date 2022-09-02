@@ -7,7 +7,6 @@ const galleryContainer = document.querySelector('.gallery');
 const galleryMarkup = createGalleryMarkup(galleryItems);
 
 galleryContainer.insertAdjacentHTML('beforeend', galleryMarkup);
-galleryContainer.addEventListener('click', onGalleryContainerClick);
 
 // markup function
 function createGalleryMarkup(images) {
@@ -25,11 +24,6 @@ function createGalleryMarkup(images) {
       </a>`;
     })
     .join('');
-}
-
-// click event function
-function onGalleryContainerClick(event) {
-  event.preventDefault();
 }
 
 // lightbox

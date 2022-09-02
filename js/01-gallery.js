@@ -46,18 +46,28 @@ function onGalleryContainerClick(event) {
 
 // lightbox function
 function ligthboxGallery() {
-  const ligthbox = basicLightbox.create(`
+  const ligthbox = basicLightbox.create(
+    `
     <img class="is-opened" src="https://cdn.pixabay.com/photo/2019/05/16/09/47/beach-4206785_1280.jpg" width="1280">
-`);
+`,
+    {
+      onShow: () => {
+        window.addEventListener('keydown', onEscapeKey);
+      },
+      onClose: () => {
+        window.removeEventListener('keydown', onEscapeKey);
+      },
+    }
+  );
 
-  ligthbox.show();
-
-  window.addEventListener('keydown', onEscapeKey);
   function onEscapeKey(event) {
     const ESC_KEY_CODE = 'Escape';
+    console.log(`esc`);
 
     if (event.code === ESC_KEY_CODE) {
       ligthbox.close();
     }
   }
+
+  ligthbox.show();
 }
